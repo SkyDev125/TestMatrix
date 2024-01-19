@@ -21,7 +21,7 @@ jobs:
           git --version
           node --version
           npm --version
-          npx commitlint --version
+          sudo npx commitlint --version
       - name: Install commitlint
         run: |
           npm install conventional-changelog-conventionalcommits
