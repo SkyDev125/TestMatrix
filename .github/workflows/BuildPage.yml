@@ -27,6 +27,7 @@ jobs:
         run: |
           cd test_matrix_app/build/web
           git init
+          git branch -m main
           git config --global user.email Builder@testmatrix.com
           git config --global user.name Builder
           git remote add origin https://${{secrets.PUSHPAGE}}@github.com/SkyDev125/TestMatrixPage.git
