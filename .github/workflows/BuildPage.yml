@@ -1,0 +1,34 @@
+name: BuildPage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_page:
+    env:
+      my_secret: ${{secrets.PUSHPAGE}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # or: 'beta', 'dev', 'master' (or 'main')
+
+      - name: Build page with Flutter
+        run: |
+          flutter config --enable-web
+          flutter pub get
+          flutter build web --release
+          
+      - name: Push Build to Github Pages
+        run: |
+          cd build/web
+          git init
+          git config --global user.email Builder@testmatrix.com
+          git config --global user.name Builder
+          git remote add origin https://${{secrets.PUSHPAGE}}@github.com/SkyDev125/TestMatrixPage.git
+          git add --all
+          git commit -m "update"
+          git push origin main -f
