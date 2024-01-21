@@ -25,7 +25,7 @@ jobs:
           
       - name: Push Build to Github Pages
         run: |
-          cd build/web
+          cd test_matrix_app/build/web
           git init
           git config --global user.email Builder@testmatrix.com
           git config --global user.name Builder
