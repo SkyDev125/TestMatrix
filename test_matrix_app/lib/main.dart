@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,28 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 29, 102, 212)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Test Matrix',
+      themeMode: ThemeMode.dark, // Use dark theme
+      darkTheme: ThemeData.dark(), // This is the default Flutter dark theme
+      home: const MyHomePage(title: 'Test Matrix'),
+      debugShowCheckedModeBanner: false, // This removes the debug banner
     );
   }
 }
@@ -57,15 +41,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  ValueNotifier<bool> isDialOpen = ValueNotifier(false);
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
+    });
+    Future.delayed(const Duration(milliseconds: 0), () {
+      isDialOpen.value = true; // keep the dial open
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+    Future.delayed(const Duration(milliseconds: 0), () {
+      isDialOpen.value = true; // keep the dial open
     });
   }
 
@@ -85,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Center(child: Text(widget.title)),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -112,16 +104,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   : 'You are',
             ),
             Text(
-              _counter != 25 ? '$_counter' : '$_counter Years old! (Hi Iberius)',
+              _counter != 25
+                  ? '$_counter'
+                  : '$_counter Years old! (Hi Iberius)',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: SpeedDial(
+        openCloseDial: isDialOpen,
+        animatedIcon: AnimatedIcons.menu_close,
+        overlayOpacity: 0.0, // This removes the overlay
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.add),
+            label: 'Increment',
+            onTap: () => _incrementCounter(),
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.remove),
+            label: 'Decrement',
+            onTap: () => _decrementCounter(),
+          ),
+          // Add more buttons here
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
