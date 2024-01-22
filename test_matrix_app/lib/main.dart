@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Test Matrix',
-      themeMode: ThemeMode.dark, // Use dark theme
+      themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(), // This is the default Flutter dark theme
       home: const MyHomePage(title: 'Test Matrix'),
       debugShowCheckedModeBanner: false, // This removes the debug banner
@@ -41,23 +41,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  ValueNotifier<bool> isDialOpen = ValueNotifier(false);
 
   void _incrementCounter() {
     setState(() {
       _counter++;
-    });
-    Future.delayed(const Duration(milliseconds: 0), () {
-      isDialOpen.value = true; // keep the dial open
     });
   }
 
   void _decrementCounter() {
     setState(() {
       _counter--;
-    });
-    Future.delayed(const Duration(milliseconds: 0), () {
-      isDialOpen.value = true; // keep the dial open
     });
   }
 
@@ -113,9 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: SpeedDial(
-        openCloseDial: isDialOpen,
         animatedIcon: AnimatedIcons.menu_close,
-        overlayOpacity: 0.0, // This removes the overlay
+        //overlayOpacity: 0.0, // This removes the overlay
         children: [
           SpeedDialChild(
             child: const Icon(Icons.add),
