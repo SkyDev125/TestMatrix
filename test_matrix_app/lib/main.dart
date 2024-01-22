@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import 'test_widget.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Test Matrix',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(), // This is the default Flutter dark theme
-      home: const MyHomePage(title: 'Tests Matrix'),
+      home: const MyHomePage(title: 'Test Matrix'),
       debugShowCheckedModeBanner: false, // This removes the debug banner
     );
   }
@@ -91,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const TestWidget(),
             Text(
               _counter != 25
                   ? 'You have pushed the button this many times'
