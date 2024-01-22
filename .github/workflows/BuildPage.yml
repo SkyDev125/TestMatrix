@@ -41,3 +41,9 @@ jobs:
           git commit -m "update"
           git push origin main -f
         working-directory: test_matrix_app/build/web
+
+      - name: Print versions
+        run: |
+          git --version
+          flutter --version
+        working-directory: test_matrix_app/build/web
