@@ -11,7 +11,7 @@ class TestWidget extends StatelessWidget {
       children: <Widget>[
         // Image 'images/test_icon.png' with anti-aliasing (bicubic resampling)
         Image(
-          image: AssetImage('images/test_icon.png'),
+          image: AssetImage('assets/images/test_icon.png'),
           filterQuality: FilterQuality.medium,
           isAntiAlias: true,
           width: 100,
