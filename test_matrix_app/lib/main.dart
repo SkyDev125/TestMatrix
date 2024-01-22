@@ -48,7 +48,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             const TestWidget(),
             const Text('A cute idea:', style: TextStyle(fontSize: 30)),
-            Text(appState.current.asLowerCase,
+            Text(appState.currentWordPair.asLowerCase,
                 style:
                     const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
           ],
