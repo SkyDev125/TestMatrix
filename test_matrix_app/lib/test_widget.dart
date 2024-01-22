@@ -9,19 +9,12 @@ class TestWidget extends StatelessWidget {
     return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        // Image 'images/test_icon.png' with anti-aliasing (bicubic resampling)
         Image(
           image: AssetImage('assets/images/test_icon.png'),
-          filterQuality: FilterQuality.medium,
+          filterQuality: FilterQuality.high,
           isAntiAlias: true,
-          width: 100,
-          height: 100,
-        ),
-        Text(
-          'Flutter',
-          style: TextStyle(
-            fontSize: 30,
-          ),
+          width: 200,
+          height: 200,
         ),
       ],
     );
