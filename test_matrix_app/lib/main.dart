@@ -26,12 +26,12 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  var _current = WordPair.random();
+  var _currentWordPair = WordPair.random();
 
-  WordPair get current => _current;
+  WordPair get currentWordPair => _currentWordPair;
 
-  set current(WordPair value) {
-    _current = value;
+  void refreshWordPair() {
+    _currentWordPair = WordPair.random();
     notifyListeners();
   }
 }
@@ -56,7 +56,7 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          appState.current = WordPair.random();
+          appState.refreshWordPair();
         },
         child: const Icon(Icons.refresh),
       ),
