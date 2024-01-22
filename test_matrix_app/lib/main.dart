@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Test Matrix',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(), // This is the default Flutter dark theme
-      home: const MyHomePage(title: 'Test Matrix'),
+      home: const MyHomePage(title: 'Tests Matrix'),
       debugShowCheckedModeBanner: false, // This removes the debug banner
     );
   }
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () => _incrementCounter(),
           ),
           SpeedDialChild(
-            child: const Icon(Icons.remove),
+            child: const Icon(Icons.add),
             label: 'Decrement',
             onTap: () => _decrementCounter(),
           ),
