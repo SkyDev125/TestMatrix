@@ -19,7 +19,7 @@ jobs:
       - name: Build page with Flutter
         run: |
           flutter pub get
-          flutter build web --release --web-renderer html
+          flutter build web --release
         working-directory: test_matrix_app
 
       - name: Remove base tag for GitHub Pages
