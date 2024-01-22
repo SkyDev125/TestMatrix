@@ -17,8 +17,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Namer App',
         themeMode: ThemeMode.system,
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: ThemeData.light().copyWith(
+          colorScheme: ThemeData.light().colorScheme.copyWith(
+                primary: const Color.fromARGB(255, 152, 104, 223),
+                secondary: const Color.fromARGB(255, 255, 204, 101),
+              ),
+        ),
+        darkTheme: ThemeData.dark().copyWith(
+          colorScheme: ThemeData.dark().colorScheme.copyWith(
+                primary: const Color.fromRGBO(109, 58, 183, 1),
+                secondary: const Color.fromARGB(255, 242, 175, 31),
+              ),
+        ),
         debugShowCheckedModeBanner: false,
         home: MyHomePage(),
       ),
@@ -35,11 +45,23 @@ class MyAppState extends ChangeNotifier {
     _currentWordPair = WordPair.random();
     notifyListeners();
   }
+
+  var favourites = <WordPair>[];
+
+  void toggleFavourite() {
+    if (favourites.contains(_currentWordPair)) {
+      favourites.remove(_currentWordPair);
+    } else {
+      favourites.add(_currentWordPair);
+    }
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     var appState = context.watch<MyAppState>();
     var wordPair = appState.currentWordPair;
 
@@ -49,8 +71,35 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TestWidget(),
-            const Text('A cute idea:', style: TextStyle(fontSize: 30)),
-            BigCard(wordPair: wordPair),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BigCard(wordPair: wordPair),
+                const SizedBox(width: 10),
+                IconButton(
+                  icon: const Icon(
+                    Icons.star,
+                    size: 33,
+                  ),
+                  onPressed: () {
+                    appState.toggleFavourite();
+                  },
+                  style: ButtonStyle(
+                      fixedSize: MaterialStateProperty.all<Size>(
+                          const Size.square(59)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0))),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          appState.favourites.contains(wordPair)
+                              ? theme.colorScheme.secondary
+                              : theme.colorScheme.primary),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(theme.canvasColor)),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -75,17 +124,21 @@ class BigCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.canvasColor,
+      fontWeight: FontWeight.bold,
+    );
 
     return Card(
       color: theme.colorScheme.primary,
       child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-        child: Text(wordPair.asLowerCase,
-            style: TextStyle(
-                color: theme.canvasColor,
-                fontSize: 40,
-                fontWeight: FontWeight.bold)),
-      ),
+          padding: const EdgeInsets.only(
+              left: 15.0, right: 15.0, top: 4.0, bottom: 4.0),
+          child: Text(
+            wordPair.asLowerCase,
+            style: style,
+            semanticsLabel: wordPair.asPascalCase,
+          )),
     );
   }
 }
