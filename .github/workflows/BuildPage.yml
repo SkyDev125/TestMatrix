@@ -18,13 +18,16 @@ jobs:
 
       - name: Build page with Flutter
         run: |
-          cd test_matrix_app
           flutter pub get
           flutter build web --release
-          
+        working-directory: test_matrix_app
+
+      - name: Remove base tag for GitHub Pages
+        run: sed -i'' -e '/<base href/d' build/web/index.html
+        working-directory: test_matrix_app
+
       - name: Push Build to Github Pages
         run: |
-          cd test_matrix_app/build/web
           git init
           git branch -m main
           git config --global user.email Builder@testmatrix.com
@@ -33,3 +36,4 @@ jobs:
           git add --all
           git commit -m "update"
           git push origin main -f
+        working-directory: test_matrix_app/build/web
