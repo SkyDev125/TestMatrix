@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Namer App',
         themeMode: ThemeMode.system,
-        darkTheme: ThemeData.dark(), // This is the default Flutter dark theme
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         home: MyHomePage(),
       ),
@@ -40,6 +41,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    var wordPair = appState.currentWordPair;
 
     return Scaffold(
       body: Center(
@@ -48,9 +50,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             const TestWidget(),
             const Text('A cute idea:', style: TextStyle(fontSize: 30)),
-            Text(appState.currentWordPair.asLowerCase,
-                style:
-                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+            BigCard(wordPair: wordPair),
           ],
         ),
       ),
@@ -59,6 +59,32 @@ class MyHomePage extends StatelessWidget {
           appState.refreshWordPair();
         },
         child: const Icon(Icons.refresh),
+      ),
+    );
+  }
+}
+
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.wordPair,
+  });
+
+  final WordPair wordPair;
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
+    return Card(
+      color: theme.colorScheme.primary,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+        child: Text(wordPair.asLowerCase,
+            style: TextStyle(
+                color: theme.canvasColor,
+                fontSize: 40,
+                fontWeight: FontWeight.bold)),
       ),
     );
   }
