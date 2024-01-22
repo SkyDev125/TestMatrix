@@ -19,7 +19,6 @@ jobs:
       - name: Build page with Flutter
         run: |
           cd test_matrix_app
-          flutter config --enable-web
           flutter pub get
           flutter build web --release
           

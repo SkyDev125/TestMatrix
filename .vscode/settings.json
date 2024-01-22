@@ -1,5 +1,6 @@
 {
     "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/BuildPage.yml",
         ".github/workflows/CommitLint.yml"
     ]
 }
