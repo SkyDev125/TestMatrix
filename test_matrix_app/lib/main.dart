@@ -78,16 +78,14 @@ class MyHomePage extends StatelessWidget {
                 BigCard(wordPair: wordPair),
                 const SizedBox(width: 10),
                 IconButton(
-                  icon: const Icon(
-                    Icons.star,
-                    size: 33,
-                  ),
+                  iconSize: 35,
+                  icon: const Icon(Icons.star),
                   onPressed: () {
                     appState.toggleFavourite();
                   },
                   style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(
-                          const Size.square(59)),
+                          const Size.square(60)),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0))),
