@@ -10,8 +10,8 @@ class TestWidget extends StatelessWidget {
       image: AssetImage('assets/images/test_icon.png'),
       filterQuality: FilterQuality.high,
       isAntiAlias: true,
-      width: 200,
-      height: 200,
+      width: 215,
+      height: 215,
     );
   }
 }
