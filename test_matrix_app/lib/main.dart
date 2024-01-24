@@ -2,6 +2,8 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'test_widget.dart';
+import 'app_state.dart';
+import 'favourite_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,28 +38,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppState extends ChangeNotifier {
-  var _currentWordPair = WordPair.random();
-
-  WordPair get currentWordPair => _currentWordPair;
-
-  void refreshWordPair() {
-    _currentWordPair = WordPair.random();
-    notifyListeners();
-  }
-
-  var favourites = <WordPair>[];
-
-  void toggleFavourite() {
-    if (favourites.contains(_currentWordPair)) {
-      favourites.remove(_currentWordPair);
-    } else {
-      favourites.add(_currentWordPair);
-    }
-    notifyListeners();
-  }
-}
-
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -77,25 +57,7 @@ class MyHomePage extends StatelessWidget {
               children: [
                 BigCard(wordPair: wordPair),
                 const SizedBox(width: 10),
-                IconButton(
-                  iconSize: 35,
-                  icon: const Icon(Icons.star),
-                  onPressed: () {
-                    appState.toggleFavourite();
-                  },
-                  style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(
-                          const Size.square(60)),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0))),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          appState.favourites.contains(wordPair)
-                              ? theme.colorScheme.secondary
-                              : theme.colorScheme.primary),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(theme.canvasColor)),
-                ),
+                FavouriteButton(appState: appState, wordPair: wordPair, theme: theme),
               ],
             ),
           ],
@@ -130,8 +92,7 @@ class BigCard extends StatelessWidget {
     return Card(
       color: theme.colorScheme.primary,
       child: Padding(
-          padding: const EdgeInsets.only(
-              left: 15.0, right: 15.0, top: 4.0, bottom: 4.0),
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 4.0, bottom: 4.0),
           child: Text(
             wordPair.asLowerCase,
             style: style,
