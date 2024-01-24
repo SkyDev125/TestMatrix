@@ -66,6 +66,7 @@ class MyHomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           appState.refreshWordPair();
+          appState.play();
         },
         child: const Icon(Icons.refresh),
       ),
