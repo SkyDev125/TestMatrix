@@ -23,7 +23,7 @@ jobs:
       - name: Run Build Utils
         run: |
           pip install -r ./utils/image_series_rescaler/requirements.txt
-          python3 ./utils/image_series_rescaler/script.py assets
+          python3 ./utils/image_series_rescaler/script.py test_matrix_app/assets
 
       - name: Build page with Flutter
         run: |
