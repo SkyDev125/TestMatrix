@@ -17,6 +17,7 @@ class MyAppState extends ChangeNotifier {
   void play() {
     player.open(
       Audio("assets/audio/song1.mp3"),
+      volume: 0.2,
       autoStart: true,
       showNotification: true,
     );
