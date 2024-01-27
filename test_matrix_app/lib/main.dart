@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app_state.dart';
-import 'Themes/dark_theme.dart';
-import 'Themes/light_theme.dart';
+import 'themes/dark_theme.dart';
+import 'themes/light_theme.dart';
 import 'router.dart';
 
 void main() {

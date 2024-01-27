@@ -11,6 +11,9 @@ class _MyRouterState extends State<MyRouter> {
 
   @override
   Widget build(BuildContext context) {
+    
+    // Fetch page from selectedIndex
+
     Widget page;
     switch (selectedIndex) {
       case 0:
@@ -23,11 +26,15 @@ class _MyRouterState extends State<MyRouter> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
+    // Fetch theme from context
+    var theme = Theme.of(context);
+
     return Scaffold(
       body: Row(
         children: [
           SafeArea(
             child: NavigationRail(
+              backgroundColor: theme.colorScheme.secondary,
               extended: false,
               destinations: [
                 const NavigationRailDestination(
