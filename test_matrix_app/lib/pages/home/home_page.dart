@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_matrix_app/app_state.dart';
-import 'widgets/test_widget.dart';
+import 'widgets/icon_widget.dart';
 import 'widgets/big_card.dart';
 import 'widgets/favourite_button.dart';
 
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const TestWidget(),
+            const IconWidget(),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

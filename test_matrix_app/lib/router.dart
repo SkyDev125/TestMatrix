@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/home/home_page.dart';
+import 'pages/swatches/swatches_page.dart';
 
 class MyRouter extends StatefulWidget {
   @override
@@ -11,7 +12,6 @@ class _MyRouterState extends State<MyRouter> {
 
   @override
   Widget build(BuildContext context) {
-    
     // Fetch page from selectedIndex
 
     Widget page;
@@ -21,6 +21,9 @@ class _MyRouterState extends State<MyRouter> {
 
       case 1:
         page = const Placeholder();
+
+      case 2:
+        page = SwatchesPage();
 
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -34,7 +37,7 @@ class _MyRouterState extends State<MyRouter> {
         children: [
           SafeArea(
             child: NavigationRail(
-              backgroundColor: theme.colorScheme.secondary,
+              backgroundColor: theme.colorScheme.primary,
               extended: false,
               destinations: [
                 const NavigationRailDestination(
@@ -44,6 +47,10 @@ class _MyRouterState extends State<MyRouter> {
                 const NavigationRailDestination(
                   icon: Icon(Icons.favorite),
                   label: Text('Favorites'),
+                ),
+                const NavigationRailDestination(
+                  icon: Icon(Icons.color_lens),
+                  label: Text('Swatches'),
                 ),
               ],
               selectedIndex: selectedIndex,
