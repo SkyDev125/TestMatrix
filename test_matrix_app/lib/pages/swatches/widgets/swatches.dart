@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:test_matrix_app/global_widgets/clipboard_toast.dart';
 
 class Swatches extends StatelessWidget {
   const Swatches({super.key});
@@ -36,9 +38,16 @@ class Swatches extends StatelessWidget {
       mainAxisSpacing: 10.0,
       scrollDirection: Axis.vertical,
       children: themeProperties.entries.map((entry) {
-        return Container(
-          color: entry.value,
-          child: SwatchText(text: entry.key),
+        return GestureDetector(
+          onTap: () {
+            Clipboard.setData(ClipboardData(text: entry.key.toString()));
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            ClipboardToast(context: context, theme: theme).show();
+          },
+          child: Container(
+            color: entry.value,
+            child: SwatchText(text: entry.key),
+          ),
         );
       }).toList(),
     );
@@ -59,9 +68,13 @@ class SwatchText extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            color: Colors.black,
-            child: Text(text),
+          Card(
+            color: Colors.white.withOpacity(0.3),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 4.0, bottom: 4.0),
+              child: Text(text, style: Theme.of(context).textTheme.bodyLarge),
+            ),
           ),
         ],
       ),
