@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/home/home_page.dart';
 import 'pages/swatches/swatches_page.dart';
+import 'pages/favourites/favourites_page.dart';
 
 class MyRouter extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _MyRouterState extends State<MyRouter> {
         page = HomePage();
 
       case 1:
-        page = const Placeholder();
+        page = FavouritesPage();
 
       case 2:
         page = SwatchesPage();

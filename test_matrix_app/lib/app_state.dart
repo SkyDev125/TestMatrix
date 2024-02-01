@@ -4,10 +4,11 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 
 class MyAppState extends ChangeNotifier {
   var _currentWordPair = WordPair.random();
+  WordPair get currentWordPair => _currentWordPair;
+
+  var favourites = <WordPair>[];
 
   var player = AssetsAudioPlayer.newPlayer();
-
-  WordPair get currentWordPair => _currentWordPair;
 
   void refreshWordPair() {
     _currentWordPair = WordPair.random();
@@ -23,14 +24,17 @@ class MyAppState extends ChangeNotifier {
     );
   }
 
-  var favourites = <WordPair>[];
-
   void toggleFavourite() {
     if (favourites.contains(_currentWordPair)) {
       favourites.remove(_currentWordPair);
     } else {
       favourites.add(_currentWordPair);
     }
+    notifyListeners();
+  }
+
+  void removeFavourite(WordPair wordPair) {
+    favourites.remove(wordPair);
     notifyListeners();
   }
 }
